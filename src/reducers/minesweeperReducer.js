@@ -26,6 +26,9 @@ const minesweeperReducer = (state = defaultStore, action = {type: ""}) => {
     }
 
     case OPEN_CELL: {
+      if (state.board[action.id].hasFlag) {
+        return state;
+      }
       //action.id => coordinate
       const id = action.id
       const cell = {...state.board[action.id], isOpen: true}
@@ -34,6 +37,9 @@ const minesweeperReducer = (state = defaultStore, action = {type: ""}) => {
     }
 
     case TOGGLE_CELL_FLAG: {
+      if (state.board[action.id].isOpen) {
+        return state
+      }
       const id = action.id
       const cell = {...state.board[action.id], hasFlag: !state.board[action.id].hasFlag}
       const board = {...state.board, [id]: cell}

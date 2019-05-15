@@ -62,6 +62,19 @@ describe('board actions', () => {
       const newState = minesweeperReducer(initState, openAction);
       expect(newState.board['0,1'].isOpen).toEqual(true);
     })
+    describe('when hasFlag is true', () => {
+      let hasFlagState;
+      beforeEach(()=> {
+        const toggleAction = {type: TOGGLE_CELL_FLAG, id: '0,1'}
+        hasFlagState = minesweeperReducer(initState, toggleAction);
+      })
+
+      it('does not set isOpen', () => {
+        const newState = minesweeperReducer(hasFlagState, openAction);
+        expect(newState.board['0,1'].hasFlag).toEqual(true);
+        expect(newState.board['0,1'].isOpen).toEqual(false);
+      })
+    })
   })
 
   describe('toggle_cell_flag', () => {
